@@ -97,7 +97,7 @@ flexible: &FLEXIBLE
 backend:
   name: git-gateway
   repo: alexrichardsweb/portfolio
-  branch: main # Branch to update (optional; defaults to master)
+  branch: master # Branch to update (optional; defaults to master)
   local_backend: true
 #publish_mode: editorial_workflow
 media_folder: "static/images/uploads" # Media files will be stored in the repo under images/uploads
