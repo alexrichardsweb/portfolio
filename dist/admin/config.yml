@@ -1,0 +1,241 @@
+# =============================================
+# Reusable Fields and Fieldsets
+# =============================================
+
+textFields:
+  - &TEXTFIELD { label: Text, name: text, widget: richtext }
+
+blockSettingsFields:
+  - &WIDTHFIELD { label: 'Width (%)', name: width, widget: number, default: 50, step: 5, min: 25, max: 75 }
+  - &LEFTORRIGHT { label: Side, name: side, widget: select, default: 'left', options: [{ label: 'Left', value: 'left'}, { label: 'Right', value: 'right'}] }
+  - &PADDINGLEVEL { label: 'Padding Level', name: padding, widget: number, default: 0, step: 1, min: 0, max: 10, hint: "Amount of space above and below the text"}
+
+imageFields: &IMAGEFIELDS
+  - &IMAGESOURCEFIELD { label: Image, name: image, widget: image, required: false }
+  - &IMAGEDESCRIPTIONFIELD { label: Image Description, name: alt, widget: string, required: false }
+
+flexible: &FLEXIBLE
+  - label: 'Text Block'
+    name: 'text_block'
+    widget: object
+    fields:
+      - *TEXTFIELD
+  - label: 'Image'
+    name: 'image'
+    widget: object
+    fields: *IMAGEFIELDS
+  - label: 'Two Column Text'
+    name: 'two_column_text'
+    widget: 'object'
+    fields:
+      - label: 'Left Block'
+        name: 'left_block'
+        widget: object
+        fields:
+          - *TEXTFIELD
+          - *WIDTHFIELD
+      - label: 'Right Block'
+        name: 'right_block'
+        widget: object
+        fields:
+          - *TEXTFIELD
+  - label: 'Image and Text'
+    name: 'image_and_text'
+    widget: 'object'
+    fields:
+      - label: 'Text'
+        name: 'text_block'
+        widget: object
+        fields:
+          - *TEXTFIELD
+          - *WIDTHFIELD
+          - *PADDINGLEVEL
+          - *LEFTORRIGHT
+      - label: 'Image'
+        name: 'image_block'
+        widget: object
+        fields: *IMAGEFIELDS
+  - label: 'Video'
+    name: 'video'
+    widget: object
+    fields:
+      - label: 'Video'
+        name: 'video'
+        widget: relation
+        collection: 'Videos'
+        search_fields: ['title']
+        display_fields: ['title']
+        value_field: '{{slug}}'
+        multiple: false
+        hint: 'Select a single video to display'
+  - label: 'Video Gallery'
+    name: 'video_gallery'
+    widget: object
+    fields:
+      - label: "Gallery Type"
+        name: "gallery_type"
+        widget: "select"
+        default: "all"
+        options:
+          - { label: "Display All Videos", value: "all" }
+          - { label: "Select Videos", value: "select" }
+      - label: 'Videos'
+        name: 'videos'
+        widget: relation
+        collection: 'Videos'
+        search_fields: ['title']
+        display_fields: ['title']
+        value_field: '{{slug}}'
+        multiple: true
+        hint: 'Select a list of videos, only works if "Select Videos" is chosen'
+        required: false
+
+# =============================================
+# Site Config
+# =============================================
+
+backend:
+  name: git-gateway
+  repo: alexrichardsweb/portfolio
+  branch: main # Branch to update (optional; defaults to master)
+  local_backend: true
+#publish_mode: editorial_workflow
+media_folder: "static/images/uploads" # Media files will be stored in the repo under images/uploads
+media_library:
+  name: uploadcare
+  config:
+    publicKey: fa4b08df31e2b7a6108e
+  settings:
+    autoFilename: true
+    defaultOperations: '/resize/1600x/'
+    imagesOnly: true
+    tabs: 'file url facebook'
+public_folder: "images/uploads"
+collections:
+  - name: 'Settings'
+    label: 'Site Settings'
+    folder: 'content/settings'
+    format: 'frontmatter'
+    slug: 'settings'
+    editor:
+      preview: false
+    fields:
+      - { label: 'Site Settings Name', name: 'site_settings_name', widget: 'string', default: 'Site Settings' }
+      - { label: 'Site Name', name: 'site_name', widget: 'string' }
+      - { label: 'Logo', name: 'logo', widget: 'image', required: false }
+      - label: 'Social'
+        name: 'social'
+        widget: list
+        fields:
+          - label: 'Social Media'
+            name: 'social_media'
+            widget: object
+            fields:
+              - { label: 'Title', name: 'title', widget: 'string' }
+              - { label: 'Link', name: 'link', widget: 'string' }
+      - label: 'Menu Pages'
+        name: 'menu_pages'
+        widget: list
+        fields:
+          - label: 'Menu Item'
+            name: 'Menu Item'
+            widget: object
+            fields:
+              - { label: 'Title', name: 'title', widget: 'string' }
+              - label: 'Page Type'
+                name: 'page_type'
+                widget: 'select'
+                default: 'internal'
+                options:
+                  - { label: "Site Page", value: "internal" }
+                  - { label: "External Link", value: "external" }
+              - { label: 'Link', name: 'link', widget: 'string', hint: 'If page type is an external link, enter it here', required: false }
+              - label: 'Page'
+                name: 'page'
+                widget: 'relation'
+                collection: 'Pages'
+                search_fields: ['title']
+                display_fields: ['title']
+                value_field: '{{slug}}'
+                hint: 'If page type is a site page, choose it here'
+                required: false
+  - name: 'Pages'
+    label: 'Pages'
+    folder: 'content/pages'
+    format: 'frontmatter'
+    create: true
+    slug: '{{slug}}'
+    editor:
+      preview: false
+    fields:
+      - { label: 'Title', name: 'title', widget: 'string' }
+      - label: 'Content Blocks'
+        name: 'sections'
+        widget: 'list'
+        types: *FLEXIBLE
+  - name: 'Videos'
+    label: 'Videos'
+    folder: 'content/videos'
+    format: 'frontmatter'
+    create: true
+    slug: '{{slug}}'
+    editor:
+      preview: false
+    fields:
+      - { label: 'Title', name: 'title', widget: 'string' }
+      - { label: 'Video Description', name: 'video_description', widget: 'markdown' }
+      - label: "Video Type"
+        name: "video_type"
+        widget: "select"
+        default: "dailymotion"
+        options:
+          - { label: "Youtube", value: "youtube" }
+          - { label: "Dailymotion", value: "dailymotion" }
+      - { label: 'Video ID', name: 'video_id', widget: 'string' }
+
+  - name: 'Shows'
+    label: 'Shows'
+    folder: 'content/shows'
+    format: 'frontmatter'
+    create: true
+    slug: '{{slug}}'
+    editor:
+      preview: false
+    fields:
+      - { label: 'Title', name: 'title', widget: 'string' }
+      - { label: 'Description', name: 'show_description', widget: 'markdown', required: false }
+      - { label: 'Date and Time', name: 'show_date_time', widget: 'datetime', date_format: 'ddd Do MMMM YYYY' }
+      - { label: 'Event URL', hint: 'Link to Facebook event/festival website', name: 'show_url', widget: 'string', required: false }
+
+      - label: 'Location'
+        name: 'show_location'
+        widget: 'object'
+        fields:
+        - { label: 'Location Name', hint: 'Name of club/town or festival', name: 'location_name', widget: 'string' }
+        - { label: 'Location URL', hint: 'If the club/festival has a website of social media page put it here', name: 'location_url', widget: 'string', required: false }
+
+      - label: 'Tickets'
+        name: 'show_tickets'
+        widget: 'object'
+        fields:
+        - { label: 'Ticket Price', hint: 'Include currency e.g. £5', name: 'ticket_price', widget: 'string', required: false }
+        - { label: 'Ticket URL', hint: 'Add if tickets are available to buy online', name: 'ticket_url', widget: 'string', required: false }
+        - { label: 'Ticket Info', hint: 'Further info about tickets e.g. "Available on the door"',  name: 'ticket_info', widget: 'markdown', required: false }
+
+      - { label: 'Promo Video', name: 'show_video', widget: 'string', required: false }
+      - { label: 'Promo Image', name: 'show_image', widget: 'image', required: false }
+
+  - name: 'Home'
+    label: 'Homepage'
+    folder: 'content/home'
+    format: 'frontmatter'
+    create: true
+    slug: '{{slug}}'
+    editor:
+      preview: false
+    fields:
+      - { label: 'Title', name: 'title', widget: 'string' }
+      - label: 'Content Blocks'
+        name: 'sections'
+        widget: 'list'
+        types: *FLEXIBLE
