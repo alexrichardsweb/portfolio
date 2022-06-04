@@ -1,31 +1,10 @@
 // COLOUR SCHEME
-$primary: #e72677;
-$secondary: #e94c29;
-$tertiary: #191919;
-
-// BLACK/WHITE SHADES
-$black: #222;
-$grey800: #191919;
-$grey600: #26292A;
-$grey500: #36393A;
-$grey400: #5C5C5B;
-$grey300: #929292;
-$grey200: #BDBDBD;
-$grey150: #EBEBEB;
-$grey100: #F7F7F7;
+$green: #008080;
+$blue: #000082;
+$grey: #c3c3c3;
+$yellow: #ffffff; /* TODO: */
+$black: #000;
 $white: #fff;
-
-// TINTS
-$light10: rgba(255,255,255,.1);
-$light30: rgba(255,255,255,.3);
-$light50: rgba(255,255,255,.5);
-$light60: rgba(255,255,255,.6);
-$dark10: rgba(0,0,0,.1);
-$dark30: rgba(0,0,0,.3);
-$dark50: rgba(0,0,0,.5);
-$dark60: rgba(0,0,0,.6);
-$transparent: rgba(0,0,0,0);
-$whitetransparent: rgba(255,255,255,0); /* For white gradients on Safari */
 
 // SOCIAL COLOURS
 $facebook: #4465a3;
@@ -34,42 +13,19 @@ $instagram: #8e42BD;
 $youtube: #c4302b;
 $linkedin: #2867b2;
 
-// GRADIENTS
-$primarygradient: linear-gradient(90deg, $primary 0%, $secondary 100%);
-$tertiarygradient: linear-gradient(rgba(25,25,25,0) 0%, rgba(25,25,25,.1) 65%, $tertiary 100%);
-
 // COLOUR MAP
 $colour-list: (
-    "primary": $primary,
-    "secondary": $secondary,
-    "tertiary": $tertiary,
+    "green": $green,
+    "blue": $blue,
+    "yellow": $yellow,
     "black": $black,
-    "grey800": $grey800,
-    "grey600": $grey600,
-    "grey500": $grey500,
-    "grey400": $grey400,
-    "grey300": $grey300,
-    "grey200": $grey200,
-    "grey150": $grey150,
-    "grey100": $grey100,
+    "grey": $grey,
     "white": $white,
     "facebook": $facebook,
     "twitter": $twitter,
     "instagram": $instagram,
     "youtube": $youtube,
     "linkedin": $linkedin,
-    "light10": $light10,
-    "light30": $light30,
-    "light50": $light50,
-    "light60": $light60,
-    "dark10": $dark10,
-    "dark30": $dark30,
-    "dark50": $dark50,
-    "dark60": $dark60,
-    "transparent": $transparent,
-    "whitetransparent": $whitetransparent,
-    "primarygradient": $primarygradient,
-    "tertiarygradient": $tertiarygradient,
 );
 
 @each $name, $hex in $colour-list {
@@ -133,11 +89,4 @@ $colour-list: (
         }
     }
 
-}
-
-.bg-checkered {
-    background-color: #fff;
-    background-image: linear-gradient(45deg, $black 25%, transparent 25%, transparent 75%, $black 75%), linear-gradient(45deg, $black 25%, transparent 25%, transparent 75%, $black 75%);
-    background-size: 20px 20px;
-    background-position: 0 0, 10px 10px;
 }

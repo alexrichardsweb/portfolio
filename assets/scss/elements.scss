@@ -38,7 +38,7 @@ table {
 }
 
 th {
-  background: $primary;
+  background: $blue;
   color: $white;
   font-weight: bold;
   text-transform: uppercase;
@@ -48,7 +48,7 @@ th {
 tr {
   + tr {
       td {
-        border-top: 1px solid $grey200;
+        border-top: 1px solid $grey;
       }
   }
 }
@@ -61,7 +61,7 @@ blockquote {
   position: relative;
   margin: 1rem 0;
   padding: 1rem 0;
-  border: 2px solid $secondary;
+  border: 2px solid $green;
   border-width: 2px 0;
 
   &:before {
@@ -74,8 +74,8 @@ blockquote {
       align-items: center;
       padding-right: 1rem;
       margin: 1rem 0;
-      border-right: 2px solid $secondary;
-      color: $secondary;
+      border-right: 2px solid $green;
+      color: $green;
       font-family: 'icomoon';
       @include fontSize(56px);
   }
@@ -89,7 +89,7 @@ blockquote {
 }
 
 select {
-    color: $primary;
+    color: $blue;
     @include fontSize(16px);
     padding: .5rem 2rem .5rem .85rem;
     appearance: none;
@@ -97,12 +97,12 @@ select {
     background-repeat: no-repeat;
     background-size: 13px 13px;
     background-position: calc(100% - .75rem) 50%;
-    border: 1px solid $grey200;
+    border: 1px solid $grey;
     font-weight: 400;
     cursor: pointer;
     &.bg-primary {
         color: $white;
-        background: $primary url('~assets/icons/down-arrow-white.svg');
+        background: $blue url('~assets/icons/down-arrow-white.svg');
         background-repeat: no-repeat;
         background-size: 13px 13px;
         background-position: calc(100% - .75rem) 50%;
@@ -198,7 +198,7 @@ select {
 .aggregator__filter:hover,
 .aggregator__filter.active {
   cursor: pointer;
-  background-color: $primary;
+  background-color: $blue;
   color: $white;
   transition: background-color .25s, color .25s;
 }
@@ -217,7 +217,7 @@ select {
       right: 0;
       left: 0;
       display: inline-block;
-      border-top: 2px solid $primary;
+      border-top: 2px solid $blue;
       transition: .2s;
     }
 
@@ -229,7 +229,7 @@ select {
       width: 6px;
       height: 6px;
       display: inline-block;
-      border: 1px solid $primary;
+      border: 1px solid $blue;
       border-width: 2px 2px 0 0;
       transform: rotate(45deg);
       transition: .2s;
@@ -258,10 +258,10 @@ select {
     }
     &.black {
         &::before {
-            border-top: 2px solid $grey800;
+            border-top: 2px solid $grey;
         }
         &::after {
-            border: 1px solid $grey800;
+            border: 1px solid $grey;
             border-width: 2px 2px 0 0;
         }
         &.left {
@@ -285,7 +285,7 @@ select {
   transition: .2s;
   &:hover,
   &.active {
-    background: $primary !important;
+    background: $blue !important;
   }
 }
 
@@ -355,12 +355,12 @@ button,
     text-transform: uppercase;
     padding: 1rem 1.5rem;
     cursor: pointer;
-    box-shadow: inset 0 0 0 0 $primary;
+    box-shadow: inset 0 0 0 0 $blue;
 
     &.bg-white {
-        color: $primary;
+        color: $blue;
         &:before {
-            background-color: $primary;
+            background-color: $blue;
         }
         &:hover {
             color: $white;
@@ -371,7 +371,7 @@ button,
         padding: 1rem 1.75rem;
     }
     &.fill-right {
-        background-image: linear-gradient(to right, $secondary 50%, $primary 50%);
+        background-image: linear-gradient(to right, $green 50%, $blue 50%);
         background-position: bottom right;
         background-size: 210% 100%;
         &:hover {
@@ -379,7 +379,7 @@ button,
         }
     }
     &.fill-left {
-        background-image: linear-gradient(to left, $secondary 50%, $primary 50%);
+        background-image: linear-gradient(to left, $green 50%, $blue 50%);
         background-position: bottom left;
         background-size: 210% 100%;
         &:hover {
@@ -387,7 +387,7 @@ button,
         }
     }
     &.fill-up {
-        background-image: linear-gradient(to top, $secondary 50%, $primary 50%);
+        background-image: linear-gradient(to top, $green 50%, $blue 50%);
         background-position: top left;
         background-size: 100% 200%;
         &:hover {
@@ -395,7 +395,7 @@ button,
         }
     }
     &.fill-down {
-        background-image: linear-gradient(to bottom, $secondary 50%, $primary 50%);
+        background-image: linear-gradient(to bottom, $green 50%, $blue 50%);
         background-position: bottom left;
         background-size: 100% 200%;
         &:hover {
@@ -403,53 +403,4 @@ button,
         }
     }
 
-    // A list of colours that can be used with hover effects
-
-    $button-colours: (
-        "primary": $primary,
-        "secondary": $secondary,
-        "tertiary": $tertiary,
-        "black": $black,
-        "white": $white,
-        "transparent": $transparent,
-        "primarygradient": $primarygradient,
-    );
-
-    $button-hover-colours: (
-        "primary": $primary,
-        "secondary": $secondary,
-        "tertiary": $tertiary,
-        "black": $black,
-        "white": $white,
-        "primarygradient": $primarygradient,
-    );
-
-    @each $bgName, $bgHex in $button-colours {
-        @each $hoverName, $hoverHex in $button-hover-colours {
-            &.fill-right {
-                &.bg-#{$bgName}.hover-bg-#{$hoverName},
-                &.bg-#{$bgName}.hover-bg-#{$hoverName}--no-focus {
-                    background-image: linear-gradient(to right, $hoverHex 50%, $bgHex 50%);
-                }
-            }
-            &.fill-left {
-                &.bg-#{$bgName}.hover-bg-#{$hoverName},
-                &.bg-#{$bgName}.hover-bg-#{$hoverName}--no-focus {
-                    background-image: linear-gradient(to left, $hoverHex 50%, $bgHex 50%);
-                }
-            }
-            &.fill-up {
-                &.bg-#{$bgName}.hover-bg-#{$hoverName},
-                &.bg-#{$bgName}.hover-bg-#{$hoverName}--no-focus {
-                    background-image: linear-gradient(to top, $hoverHex 50%, $bgHex 50%);
-                }
-            }
-            &.fill-down {
-                &.bg-#{$bgName}.hover-bg-#{$hoverName},
-                &.bg-#{$bgName}.hover-bg-#{$hoverName}--no-focus {
-                    background-image: linear-gradient(to bottom, $hoverHex 50%, $bgHex 50%);
-                }
-            }
-        }
-    }
 }
