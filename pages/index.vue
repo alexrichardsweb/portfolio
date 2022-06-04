@@ -1,5 +1,7 @@
 <template>
-  <Tutorial />
+  <main class="windows">
+    Hello
+  </main>
 </template>
 
 <script>

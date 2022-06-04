@@ -21,27 +21,45 @@ export default {
     ]
   },
 
-  // Global CSS: https://go.nuxtjs.dev/config-css
-  css: [
-  ],
+   /*
+    **  Global environment variables
+    */
+    env: {
+        siteTitle: `Sotic Digital`,
+      },
+
+  /*
+   ** Global CSS
+   */
+
+   css: [`~assets/scss/reset.scss`],
 
   // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
   plugins: [
   ],
 
-  // Auto import components: https://go.nuxtjs.dev/config-components
-  components: true,
-
+  /*
+    ** Auto import components
+    ** See https://nuxtjs.org/api/configuration-components
+  */
+  components: [
+      {
+        path: `~/components`, // will get any components nested in let's say /components/test too
+        pathPrefix: false,
+      },
+    ],
   // Modules for dev and build (recommended): https://go.nuxtjs.dev/config-modules
   buildModules: [
     // https://go.nuxtjs.dev/eslint
-    '@nuxtjs/eslint-module'
+    '@nuxtjs/eslint-module',
   ],
 
   // Modules: https://go.nuxtjs.dev/config-modules
   modules: [
     // https://go.nuxtjs.dev/axios
-    '@nuxtjs/axios'
+    '@nuxtjs/axios',
+    `@nuxtjs/style-resources`,
+    `@nuxt/content`,
   ],
 
   // Axios module configuration: https://go.nuxtjs.dev/config-axios
@@ -52,5 +70,21 @@ export default {
 
   // Build Configuration: https://go.nuxtjs.dev/config-build
   build: {
-  }
+  },
+
+
+  /*
+   * Style Resources for SASS
+   */
+
+  styleResources: {
+    scss: [
+      `./assets/scss/colours.scss`,
+      `./assets/scss/responsive.scss`,
+      `./assets/scss/typography.scss`,
+      `./assets/scss/elements.scss`,
+      `./assets/scss/utility.scss`,
+      `./assets/scss/transition.scss`,
+    ],
+  },
 }

@@ -1,0 +1,220 @@
+$directions: (
+    "up": translateY(50px),
+    "down": translateY(-50px),
+    "right": translateX(-50px),
+    "left": translateX(50px),
+);
+
+/*
+*   CSS animations
+*   e.g. animation: fade-in;
+*/
+
+@keyframes fade-in {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes fade-out {
+    from {
+        opacity: 1;
+    }
+    to {
+        opacity: 0;
+    }
+}
+
+@keyframes spin {
+    from {
+      transform: rotate(0deg);
+    }
+    to {
+      transform: rotate(720deg);
+    }
+}
+
+@each $direction, $transform in $directions {
+
+    @keyframes fade-in-#{$direction} {
+        from {
+            opacity: 0;
+            transform: $transform;
+        }
+        to {
+            opacity: 1;
+            transform: translate(0);
+        }
+    }
+}
+
+
+/*
+*   Vue component transitions
+*   e.g. <transition name="slide-right">
+*/
+
+@each $direction, $transform in $directions {
+    .slide-#{$direction}-enter-active,
+    .slide-#{$direction}-leave-active {
+        transition: .3s;
+    }
+
+    .slide-#{$direction}-enter,
+    .slide-#{$direction}-leave-to {
+        transform: #{$transform};
+        opacity: 0;
+    }
+}
+
+.fade-enter-active,
+.fade-leave-active {
+    transition: .3s;
+}
+
+.fade-enter,
+.fade-leave-to {
+    opacity: 0;
+}
+
+.scale-enter-active,
+.scale-leave-active {
+    transition: .1s;
+}
+
+.scale-enter,
+.scale-leave-to {
+    opacity: 0;
+    transform: scale(.5);
+}
+
+.reorder-move {
+    transition: .3s;
+}
+
+/*
+*   Text hover animations
+*   - underline
+*   - underline + overline
+*/
+
+[class^="text-hover"] {
+    position: relative;
+    transition: .2s;
+}
+
+[class^="text-hover-under"] {
+    &:after {
+        content: '';
+        width: 0;
+        transition: .2s;
+        left: -5px;
+        position: absolute;
+        bottom: 15px;
+        border-top: 1px solid $primary;
+    }
+    &:hover {
+      &:after {
+        width: calc(100% + 10px);
+      }
+    }
+}
+
+[class^="text-hover-under-over"] {
+    &:before {
+        content: '';
+        width: 0;
+        transition: .2s;
+        right: -5px;
+        position: absolute;
+        top: 15px;
+        border-top: 1px solid $primary;
+      }
+    &:hover {
+      &:before {
+        width: calc(100% + 10px);
+      }
+    }
+}
+
+.text-hover-under-over--black,
+.text-hover-under--black {
+    &:before,
+    &:after {
+        border-color: $black;
+    }
+}
+
+.text-hover-under-over--white,
+.text-hover-under--white {
+    &:before,
+    &:after {
+        border-color: $white;
+    }
+}
+
+/*
+*   Page load animations
+*   - animate-self (animate single element)
+*   - animate-children (animate multiple child elements)
+*   - animate-per-row--[1|2|3|4] (animate child element columns sequentially)
+*/
+
+@keyframes fade-loaded {
+    from {
+      transform: translateY(100%);
+      opacity: 0;
+    }
+    to {
+      transform: translateY(0);
+      opacity: 1;
+    }
+  }
+
+$animationDurationPerChild: .3s;
+
+.animate-self {
+  &.animation-active {
+    animation: fade-loaded;
+    animation-duration: $animationDurationPerChild;
+    animation-timing-function: ease-out;
+  }
+}
+
+/* Animate multiple elements */
+
+.animate-children--mobile {
+  $maxChildren: 8;
+  @for $child from 1 through $maxChildren {
+    &.animation-active {
+      > * {
+        animation: fade-loaded;
+        animation-duration: $animationDurationPerChild;
+        animation-timing-function: ease-out;
+      }
+    }
+  }
+}
+
+@include breakpoint('small-laptop') {
+  /* Animate sequentially by column on desktop */
+  .animate-children {
+    $maxPerRow: 4;
+    @for $child from 1 through $maxPerRow {
+      &.animation-active {
+          &.animate-per-row--#{$child} {
+          @for $column from 1 through $child {
+            > :nth-child(#{$child}n + #{$column}) {
+              animation: fade-loaded;
+              animation-duration: $column * $animationDurationPerChild;
+              animation-timing-function: ease-out;
+            }
+          }
+        }
+      }
+    }
+  }
+}

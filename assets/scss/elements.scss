@@ -1,0 +1,455 @@
+// Global HTML DOM elements - layout & structural
+
+html, body {
+  background-color: $white;
+  scroll-behavior: smooth;
+}
+
+html.menu__open {
+  overflow: hidden;
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+}
+
+main {
+  flex-wrap: wrap;
+  justify-content: space-between;
+  padding-top: 37px;
+  @include breakpoint('small-laptop') {
+      padding-top: 0;
+  }
+}
+
+.table--scrollable {
+  overflow-x: auto;
+  table {
+    min-width: 600px;
+  }
+}
+
+table {
+  border-collapse: collapse;
+  margin: 0;
+  width: 100%;
+  text-align: center;
+}
+
+th {
+  background: $primary;
+  color: $white;
+  font-weight: bold;
+  text-transform: uppercase;
+  padding: .5rem;
+}
+
+tr {
+  + tr {
+      td {
+        border-top: 1px solid $grey200;
+      }
+  }
+}
+
+td {
+  padding: .5rem;
+}
+
+blockquote {
+  position: relative;
+  margin: 1rem 0;
+  padding: 1rem 0;
+  border: 2px solid $secondary;
+  border-width: 2px 0;
+
+  &:before {
+      position: absolute;
+      content: '\e977';
+      left: 0;
+      top: 0;
+      bottom: 0;
+      display: flex;
+      align-items: center;
+      padding-right: 1rem;
+      margin: 1rem 0;
+      border-right: 2px solid $secondary;
+      color: $secondary;
+      font-family: 'icomoon';
+      @include fontSize(56px);
+  }
+
+  & > * {
+      position: relative;
+      left: calc(65px);
+      width: calc(100% - 65px);
+      padding-left: 1rem;
+  }
+}
+
+select {
+    color: $primary;
+    @include fontSize(16px);
+    padding: .5rem 2rem .5rem .85rem;
+    appearance: none;
+    background: $white url('~assets/icons/down-arrow.svg');
+    background-repeat: no-repeat;
+    background-size: 13px 13px;
+    background-position: calc(100% - .75rem) 50%;
+    border: 1px solid $grey200;
+    font-weight: 400;
+    cursor: pointer;
+    &.bg-primary {
+        color: $white;
+        background: $primary url('~assets/icons/down-arrow-white.svg');
+        background-repeat: no-repeat;
+        background-size: 13px 13px;
+        background-position: calc(100% - .75rem) 50%;
+    }
+}
+
+.content {
+
+  &__article > p {
+    padding: 1rem 0;
+  }
+
+  .video-js {
+    height: auto;
+    width: 100%;
+  }
+}
+
+.content-sidebar {
+  flex: 1 1 40%;
+}
+
+.no-scrollbar {
+    &::-webkit-scrollbar {
+      width: 0;
+    }
+}
+
+[data-slider] {
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+}
+
+[data-slider-button] {
+  cursor: pointer;
+  opacity: .8;
+  width: 40px;
+  height: 40px;
+  padding: .25rem .5rem;
+
+  font-weight: bold;
+  font-size: 1.25rem;
+  border: none;
+
+  transition: opacity .25s ease;
+}
+
+[data-slider-button]:hover {
+  opacity: 1.0;
+}
+
+[data-slider-button]:first-of-type {
+  margin-right: 5rem;
+}
+
+[data-slider-button][disabled] {
+  opacity: .5;
+  cursor: not-allowed;
+
+}
+
+@include breakpoint('small-laptop') {
+  [data-slider-button]:first-of-type {
+      margin-right: .75rem;
+  }
+}
+
+// Aggregator
+@include breakpoint('small-laptop') {
+  .aggregator__container {
+      padding: 3rem 0 0;
+  }
+}
+.aggregator__controls {
+  width: 100%;
+
+  button {
+      cursor: pointer;
+      border: none;
+  }
+}
+
+.aggregator__filters {
+
+  .icon {
+      vertical-align: middle;
+      margin-right: .5rem;
+  }
+
+}
+
+.aggregator__filter:hover,
+.aggregator__filter.active {
+  cursor: pointer;
+  background-color: $primary;
+  color: $white;
+  transition: background-color .25s, color .25s;
+}
+
+.arrow {
+    grid-area: icon;
+    position: relative;
+    display: inline-block;
+    width: 2.5rem;
+    height: 2rem;
+
+    &::before {
+      content: '';
+      position: absolute;
+      top: calc(50% - 1px);
+      right: 0;
+      left: 0;
+      display: inline-block;
+      border-top: 2px solid $primary;
+      transition: .2s;
+    }
+
+    &::after {
+      content: '';
+      position: absolute;
+      top: calc(50% - 4px);
+      right: -1px;
+      width: 6px;
+      height: 6px;
+      display: inline-block;
+      border: 1px solid $primary;
+      border-width: 2px 2px 0 0;
+      transform: rotate(45deg);
+      transition: .2s;
+    }
+
+    &.left {
+        &::after {
+            left: -1px;
+            right: auto;
+            border-width: 0 0 2px 2px;
+        }
+    }
+    &.white {
+        &::before {
+            border-top: 2px solid $white;
+        }
+        &::after {
+            border: 1px solid $white;
+            border-width: 2px 2px 0 0;
+        }
+        &.left {
+            &::after {
+                border-width: 0 0 2px 2px;
+            }
+        }
+    }
+    &.black {
+        &::before {
+            border-top: 2px solid $grey800;
+        }
+        &::after {
+            border: 1px solid $grey800;
+            border-width: 2px 2px 0 0;
+        }
+        &.left {
+            &::after {
+                border-width: 0 0 2px 2px;
+            }
+        }
+    }
+}
+
+/* Slider */
+
+.bullet {
+  cursor: pointer;
+  width: 10px;
+  height: 10px;
+  display: inline-block;
+  border-radius: 100%;
+  margin: .5rem;
+  background: $white;
+  transition: .2s;
+  &:hover,
+  &.active {
+    background: $primary !important;
+  }
+}
+
+.c-black .bullet {
+    background: $black;
+}
+
+.c-primaryBg .bullet {
+    &:hover,
+    &.active {
+        background: $black !important;
+    }
+}
+
+@include breakpoint('phone') {
+  .bullet {
+    margin: .75rem;
+  }
+}
+
+$invisibleOpacity: .45;
+
+.bg-primary .has-overflow {
+    &:before,
+    &:after {
+        background: rgba(231,38,119,$invisibleOpacity);
+    }
+}
+
+.bg-secondary .has-overflow {
+    &:before,
+    &:after {
+        background: rgba(233,76,41,$invisibleOpacity);
+    }
+}
+
+.bg-black .has-overflow {
+    &:before,
+    &:after {
+        background: rgba(0,0,0,$invisibleOpacity);
+    }
+}
+
+.bg-white .has-overflow {
+    &:before,
+    &:after {
+        background: rgba(255,255,255,$invisibleOpacity);
+    }
+}
+
+.bg-grey200 .has-overflow {
+    &:before,
+    &:after {
+        background: rgba(189,189,189,$invisibleOpacity);
+    }
+}
+
+
+/* BUTTONS */
+
+button,
+.button {
+    border: none;
+    color: $white;
+    transition: .2s;
+    text-decoration: none;
+    text-transform: uppercase;
+    padding: 1rem 1.5rem;
+    cursor: pointer;
+    box-shadow: inset 0 0 0 0 $primary;
+
+    &.bg-white {
+        color: $primary;
+        &:before {
+            background-color: $primary;
+        }
+        &:hover {
+            color: $white;
+        }
+    }
+    &.rounded {
+        border-radius: 500px;
+        padding: 1rem 1.75rem;
+    }
+    &.fill-right {
+        background-image: linear-gradient(to right, $secondary 50%, $primary 50%);
+        background-position: bottom right;
+        background-size: 210% 100%;
+        &:hover {
+            background-position: bottom left;
+        }
+    }
+    &.fill-left {
+        background-image: linear-gradient(to left, $secondary 50%, $primary 50%);
+        background-position: bottom left;
+        background-size: 210% 100%;
+        &:hover {
+            background-position: bottom right;
+        }
+    }
+    &.fill-up {
+        background-image: linear-gradient(to top, $secondary 50%, $primary 50%);
+        background-position: top left;
+        background-size: 100% 200%;
+        &:hover {
+            background-position: bottom left;
+        }
+    }
+    &.fill-down {
+        background-image: linear-gradient(to bottom, $secondary 50%, $primary 50%);
+        background-position: bottom left;
+        background-size: 100% 200%;
+        &:hover {
+            background-position: top left;
+        }
+    }
+
+    // A list of colours that can be used with hover effects
+
+    $button-colours: (
+        "primary": $primary,
+        "secondary": $secondary,
+        "tertiary": $tertiary,
+        "black": $black,
+        "white": $white,
+        "transparent": $transparent,
+        "primarygradient": $primarygradient,
+    );
+
+    $button-hover-colours: (
+        "primary": $primary,
+        "secondary": $secondary,
+        "tertiary": $tertiary,
+        "black": $black,
+        "white": $white,
+        "primarygradient": $primarygradient,
+    );
+
+    @each $bgName, $bgHex in $button-colours {
+        @each $hoverName, $hoverHex in $button-hover-colours {
+            &.fill-right {
+                &.bg-#{$bgName}.hover-bg-#{$hoverName},
+                &.bg-#{$bgName}.hover-bg-#{$hoverName}--no-focus {
+                    background-image: linear-gradient(to right, $hoverHex 50%, $bgHex 50%);
+                }
+            }
+            &.fill-left {
+                &.bg-#{$bgName}.hover-bg-#{$hoverName},
+                &.bg-#{$bgName}.hover-bg-#{$hoverName}--no-focus {
+                    background-image: linear-gradient(to left, $hoverHex 50%, $bgHex 50%);
+                }
+            }
+            &.fill-up {
+                &.bg-#{$bgName}.hover-bg-#{$hoverName},
+                &.bg-#{$bgName}.hover-bg-#{$hoverName}--no-focus {
+                    background-image: linear-gradient(to top, $hoverHex 50%, $bgHex 50%);
+                }
+            }
+            &.fill-down {
+                &.bg-#{$bgName}.hover-bg-#{$hoverName},
+                &.bg-#{$bgName}.hover-bg-#{$hoverName}--no-focus {
+                    background-image: linear-gradient(to bottom, $hoverHex 50%, $bgHex 50%);
+                }
+            }
+        }
+    }
+}

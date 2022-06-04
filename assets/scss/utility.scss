@@ -1,0 +1,339 @@
+$sizes: (
+    "0", "0.1", "0.2", "0.25", "0.3", "0.4", "0.5", "0.6", "0.7", "0.75", "0.8", "0.9",
+    "1", "1.1", "1.2", "1.25", "1.5", "1.75", "2", "2.5", "3", "3.5", "4", "4.5", "5",
+);
+
+$properties: (
+    "padding-all": "p",
+    "padding-vert": "py",
+    "padding-hor": "px",
+    "padding-top": "pt",
+    "padding-right": "pr",
+    "padding-bottom": "pb",
+    "padding-left": "pl",
+    "margin-all": "m",
+    "margin-vert": "my",
+    "margin-hor": "mx",
+    "margin-top": "mt",
+    "margin-right": "mr",
+    "margin-bottom": "mb",
+    "margin-left": "ml",
+);
+
+$display: (
+    "none",
+    "block",
+    "inline",
+    "inline-block",
+    "flex",
+    "grid",
+);
+
+
+$headerHeightMobile: 105px;
+$headerHeightDesktop: 125px;
+$footerHeightMobile: 81px;
+$footerHeightDesktop: 81px;
+
+/*********
+* TEXT ALIGN
+*********/
+
+.ta-left {
+    text-align: left;
+}
+.ta-right {
+    text-align: right
+}
+.ta-centre {
+    text-align: center;
+}
+
+/*********
+* TEXT FORMATTING
+*********/
+
+.tf-allcaps {
+	text-transform: uppercase;
+}
+
+.tf-lower {
+	text-transform: lowercase;
+}
+
+.tf-capital {
+    text-transform: capitalize;
+}
+
+.tf-normal {
+	font-weight: 400;
+}
+
+.tf-bold {
+    font-weight: 700;
+}
+
+.tf-light {
+    font-weight: 100;
+}
+
+/*********
+* POSITIONING
+*********/
+
+.central {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.p-relative {
+    position: relative;
+}
+
+.cover {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+}
+
+.cover--fixed {
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+}
+
+.object-cover {
+    object-fit: cover;
+}
+
+.space-between {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+/*********
+* MISC
+*********/
+
+.circular {
+    border-radius: 50%;
+}
+
+.clickable {
+    cursor: pointer;
+}
+
+.box-shadow {
+    box-shadow: 5px 5px 10px 0px rgba(0,0,0,.1);
+}
+
+.border-radius {
+    border-radius: 5px;
+}
+
+.icon {
+    width: 40px;
+    height: 40px;
+    cursor: pointer;
+    @include fontSize(14px);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    &.circular i {
+        margin-left: 2px;
+    }
+    &.large {
+        width: 60px;
+        height: 60px;
+        @include fontSize(20px);
+    }
+}
+
+.d-desktop-only {
+    display: none;
+}
+
+@include breakpoint('small-laptop') {
+    .d-mobile-only {
+        display: none;
+    }
+    .d-desktop-only {
+        display: block;
+    }
+}
+
+
+/*********
+* ASPECT RATIOS
+*********/
+
+[data-aspect-ratio] {
+	display: block;
+	max-width: 100%;
+	position: relative;
+	overflow: hidden;
+}
+
+[data-aspect-ratio]:before {
+	content: '';
+	display: block;
+}
+
+[data-aspect-ratio] > * {
+	display: block;
+	left: 0;
+	position: absolute;
+	top: 0;
+    width: 100%;
+}
+
+[data-aspect-ratio] > img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+[data-aspect-ratio="16:9"]:before {
+	padding-top: 56.25%;
+}
+
+[data-aspect-ratio="3:2"]:before {
+	padding-top: 66.6666%;
+}
+
+[data-aspect-ratio="4:3"]:before {
+	padding-top: 75%;
+}
+
+[data-aspect-ratio="1:1"]:before {
+	padding-top: 100%;
+}
+
+@include breakpoint('small-laptop') {
+
+    [data-aspect-ratio-desktop] {
+        display: block;
+        max-width: 100%;
+        position: relative;
+        overflow: hidden;
+    }
+
+    [data-aspect-ratio-desktop]:before {
+        content: '';
+        display: block;
+    }
+
+    [data-aspect-ratio-desktop] > * {
+        display: block;
+        left: 0;
+        position: absolute;
+        top: 0;
+        width: 100%;
+    }
+
+    [data-aspect-ratio-desktop] > img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
+
+    [data-aspect-ratio-desktop="16:9"]:before {
+        padding-top: 56.25%;
+    }
+
+    [data-aspect-ratio-desktop="3:2"]:before {
+        padding-top: 66.6666%;
+    }
+
+    [data-aspect-ratio-desktop="4:3"]:before {
+        padding-top: 75%;
+    }
+
+    [data-aspect-ratio-desktop="1:1"]:before {
+        padding-top: 100%;
+    }
+
+}
+
+
+/*********
+* PADDING & MARGIN GENERATION
+*********/
+
+@function getValueInRem($value) {
+    @if $value == "0" {
+        @return 0;
+    } @else {
+        @return #{$value}rem;
+    }
+}
+
+@function getFloor($value, $divider) {
+    @if str-index($value, $divider) {
+        @return str-slice($value, 1, str-index($value, $divider) - 1);
+    }
+
+    @return $value;
+}
+
+@function getRemainder($value, $divider) {
+    @if str-index($value, $divider) {
+        @return str-slice($value, str-index($value, $divider) + 1, -1);
+    }
+
+    @return false;
+}
+
+@function getSizeClass($wholeNum, $decimalNum) {
+    @if $decimalNum == false {
+        @return $wholeNum;
+    } @else {
+        @return $wholeNum + '-' + $decimalNum;
+    }
+}
+
+@each $size in $sizes {
+    $wholeNum: getFloor($size, ".");
+    $decimalNum: getRemainder($size, ".");
+
+    @each $property, $propertyShort in $properties {
+        $propertyName: getFloor($property, "-");
+        $propertyDirection: getRemainder($property, "-");
+        $sizeClassName: getSizeClass($wholeNum, $decimalNum);
+        $sizeValue: getValueInRem($size);
+
+        @if $propertyDirection == "all" {
+            .#{$propertyShort}-#{$sizeClassName} {
+                #{$propertyName}: #{$sizeValue};
+            }
+        } @else if index(("py", "my"), $propertyShort) {
+            .#{$propertyShort}-#{$sizeClassName} {
+                #{$propertyName}-top: #{$sizeValue};
+                #{$propertyName}-bottom: #{$sizeValue};
+            }
+        } @else if index(("px", "mx"), $propertyShort) {
+            .#{$propertyShort}-#{$sizeClassName} {
+                #{$propertyName}-left: #{$sizeValue};
+                #{$propertyName}-right: #{$sizeValue};
+            }
+        } @else {
+            .#{$propertyShort}-#{$sizeClassName} {
+                #{$property}: #{$sizeValue};
+            }
+        }
+    }
+}
+
+// DISPLAY GENERATION
+
+@each $property in $display {
+    .d-#{$property} {
+        display: #{$property};
+    }
+}
