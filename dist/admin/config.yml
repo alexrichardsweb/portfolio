@@ -117,6 +117,7 @@ collections:
     folder: 'content/settings'
     format: 'frontmatter'
     slug: 'settings'
+    create: true
     editor:
       preview: false
     fields:

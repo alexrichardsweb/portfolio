@@ -6,8 +6,8 @@
 @mixin fontSize($size) {
     font-size: $size;
     font-size: calculateRem($size);
-    line-height: $size * 1.42857;
-    line-height: calculateRem($size * 1.42857);
+    line-height: $size * 1.2;
+    line-height: calculateRem($size * 1.2);
 }
 
 @font-face {
@@ -22,43 +22,37 @@
 }
 
 @font-face {
-    font-family: bebas-neue-pro;
+    font-family: windows;
     font-style: normal;
     font-weight: 400;
     font-display: swap;
-    src: url('~assets/fonts/BebasNeueRegular.otf');
+    src: url('~assets/fonts/MicrosoftSansSerif.woff'),
+         url('~assets/fonts/MicrosoftSansSerif.woff2'),
   }
 
   @font-face {
-    font-family: bebas-neue-pro;
+    font-family: windows;
     font-style: normal;
-    font-weight: 700;
+    font-weight: 600;
     font-display: swap;
-    src: url('~assets/fonts/BebasNeueBold.otf');
-  }
-
-  @font-face {
-    font-family: bebas-neue-pro;
-    font-style: normal;
-    font-weight: 300;
-    font-display: swap;
-    src: url('~assets/fonts/BebasNeueLight.otf');
+    src: url('~assets/fonts/MicrosoftSansSerifBold.woff'),
+         url('~assets/fonts/MicrosoftSansSerifBold.woff2'),
   }
 
 /*
 *   Base font styles
 */
 
-$headingFont: bebas-neue-pro, Arial, sans-serif;
-$bodyFont: poppins, 'Open Sans', 'Helvetica Neue', Arial, sans-serif;
+$headingFont: windows, sans-serif;
+$bodyFont: windows, sans-serif;
 
 html,
 body {
     font-family: $bodyFont;
-    @include fontSize(16px);
+    @include fontSize(15px);
     font-weight: normal;
     color: $black;
-    line-height: 1.8;
+    line-height: 1.2;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
 }

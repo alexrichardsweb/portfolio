@@ -1,31 +1,11 @@
+
 import consts from './includes/const';
 
 export default {
   methods: {
     // ======================================
-    // DATA METHODS
-    // ======================================
-    /*
-    *  Store global post information
-    */
-    setPostData (post, isHomepage = false) {
-      this.$store.dispatch(`setPost`, post);
-      this.$store.dispatch(`isHomepage`, isHomepage);
-    },
-    // ======================================
     // STRING METHODS
     // ======================================
-    /*
-    *  Get excerpt from string
-    */
-    getExcerpt (excerpt, excerptLength) {
-      const strippedExcerpt = excerpt.replace(/(<([^>]+)>)/gi, ``);
-      const excerptArr = strippedExcerpt.split(` `);
-      if (excerptArr.length > excerptLength) {
-        return `${excerptArr.slice(0, (excerptLength)).join(` `)}...`;
-      }
-      return strippedExcerpt;
-    },
     /*
     *  Convert string to kebab-case to use as page slugs and Vue component IDs
     */
@@ -56,7 +36,6 @@ export default {
     extractString (text, start, end) {
       return text.split(start)[1].split(end)[0];
     },
-
     // ======================================
     // NUMBER METHODS
     // ======================================
@@ -162,11 +141,13 @@ export default {
     */
     hexToRGB (hex) {
       const result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
-      return result ? {
-        r: parseInt(result[1], 16),
-        g: parseInt(result[2], 16),
-        b: parseInt(result[3], 16),
-      } : null;
+      return result
+        ? {
+          r: parseInt(result[1], 16),
+          g: parseInt(result[2], 16),
+          b: parseInt(result[3], 16),
+        }
+        : null;
     },
     /*
     *  Get text colour based on the background
@@ -184,13 +165,13 @@ export default {
     /*
     *  Get date from date/time string or object
     */
-    getDate (date, format = `DD MMM YYYY`) {
+    getDate (date, format = `Do MMMM YYYY`) {
       return this.$moment(date).format(format);
     },
     /*
     *  Get local time from date/time string or object
     */
-    getLocalTime (date, format = `HH:mm`) {
+    getLocalTime (date, format = `hh:mm A`) {
       return this.$moment(date).local()
         .format(format);
     },
@@ -238,7 +219,8 @@ export default {
     *   Get flag SVG by country code, run function with no country code to get placeholder
     */
     getFlag (countryCode) {
-      return countryCode ? `${process.env.flagUrls.square}/${countryCode}.svg`
+      return countryCode
+        ? `${process.env.flagUrls.square}/${countryCode}.svg`
         : `${process.env.flagUrls.round}/placeholder-flag.svg`;
     },
     /*

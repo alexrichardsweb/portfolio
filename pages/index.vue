@@ -1,11 +1,16 @@
 <template>
-  <main class="windows">
-    Hello
+  <main
+    class="windows"
+    @keydown.esc="closeMenu"
+  >
+    <Menu v-if="menuOpen" />
+    <Taskbar />
   </main>
 </template>
 
 <script>
 export default {
-  name: 'IndexPage'
-}
+  methods: {
+  },
+};
 </script>

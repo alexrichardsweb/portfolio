@@ -34,6 +34,7 @@ $headerHeightMobile: 105px;
 $headerHeightDesktop: 125px;
 $footerHeightMobile: 81px;
 $footerHeightDesktop: 81px;
+$taskbarHeight: 42px;
 
 /*********
 * TEXT ALIGN
@@ -337,3 +338,14 @@ $footerHeightDesktop: 81px;
         display: #{$property};
     }
 }
+
+// POSITION MIXIN
+
+@mixin position($position, $top: 0, $right: 0, $bottom: 0, $left: 0) {
+    position: $position;
+    top: $top;
+    right: $right;
+    bottom: $bottom;
+    left: $left;
+}
+
