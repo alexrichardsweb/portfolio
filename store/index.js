@@ -1,11 +1,15 @@
 export const state = () => ({
   config: {},
   menuOpen: false,
+  menuItems: [],
 });
 
 export const mutations = {
   SET_MENU_STATUS (state, menuOpen) {
     state.menuOpen = menuOpen;
+  },
+  SET_MENU_ITEMS (state, menuItems) {
+    state.menuItems = menuItems;
   },
 };
 
@@ -17,6 +21,9 @@ export const actions = {
   }, */
   setMenuStatus ({ commit }, value) {
     commit(`SET_MENU_STATUS`, value);
+  },
+  setMenuItems ({ commit }, value) {
+    commit(`SET_MENU_ITEMS`, value);
   },
 };
 

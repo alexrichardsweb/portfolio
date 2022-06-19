@@ -165,7 +165,7 @@ export default {
     /*
     *  Get date from date/time string or object
     */
-    getDate (date, format = `Do MMMM YYYY`) {
+    getDate (date, format = `Do MMMM`) {
       return this.$moment(date).format(format);
     },
     /*

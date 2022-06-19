@@ -134,35 +134,9 @@ collections:
             fields:
               - { label: 'Title', name: 'title', widget: 'string' }
               - { label: 'Link', name: 'link', widget: 'string' }
-      - label: 'Menu Pages'
-        name: 'menu_pages'
-        widget: list
-        fields:
-          - label: 'Menu Item'
-            name: 'Menu Item'
-            widget: object
-            fields:
-              - { label: 'Title', name: 'title', widget: 'string' }
-              - label: 'Page Type'
-                name: 'page_type'
-                widget: 'select'
-                default: 'internal'
-                options:
-                  - { label: "Site Page", value: "internal" }
-                  - { label: "External Link", value: "external" }
-              - { label: 'Link', name: 'link', widget: 'string', hint: 'If page type is an external link, enter it here', required: false }
-              - label: 'Page'
-                name: 'page'
-                widget: 'relation'
-                collection: 'Pages'
-                search_fields: ['title']
-                display_fields: ['title']
-                value_field: '{{slug}}'
-                hint: 'If page type is a site page, choose it here'
-                required: false
-  - name: 'Pages'
-    label: 'Pages'
-    folder: 'content/pages'
+  - name: 'Menu Items'
+    label: 'Menu Item'
+    folder: 'content/menu'
     format: 'frontmatter'
     create: true
     slug: '{{slug}}'
@@ -170,40 +144,13 @@ collections:
       preview: false
     fields:
       - { label: 'Title', name: 'title', widget: 'string' }
-      - label: 'Content Blocks'
-        name: 'sections'
-        widget: 'list'
-        types: *FLEXIBLE
-  - name: 'Videos'
-    label: 'Videos'
-    folder: 'content/videos'
-    format: 'frontmatter'
-    create: true
-    slug: '{{slug}}'
-    editor:
-      preview: false
-    fields:
-      - { label: 'Title', name: 'title', widget: 'string' }
-      - { label: 'Video Description', name: 'video_description', widget: 'markdown' }
-      - label: "Video Type"
-        name: "video_type"
-        widget: "select"
-        default: "dailymotion"
-        options:
-          - { label: "Youtube", value: "youtube" }
-          - { label: "Dailymotion", value: "dailymotion" }
-      - { label: 'Video ID', name: 'video_id', widget: 'string' }
-  - name: 'Home'
-    label: 'Homepage'
-    folder: 'content/home'
-    format: 'frontmatter'
-    create: true
-    slug: '{{slug}}'
-    editor:
-      preview: false
-    fields:
-      - { label: 'Title', name: 'title', widget: 'string' }
-      - label: 'Content Blocks'
-        name: 'sections'
-        widget: 'list'
-        types: *FLEXIBLE
+      - { label: 'Slug', name: 'slug', widget: 'string', required: false }
+      - { label: 'Icon', name: 'icon', widget: 'string', required: false }
+      - label: 'Parent'
+        name: 'parent'
+        widget: 'relation'
+        required: false
+        collection: 'Menu Items'
+        value_field: 'slug'
+        search_fields: ['title', 'slug']
+        display_fields: ['title']

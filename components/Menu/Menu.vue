@@ -10,7 +10,15 @@
       </h4>
     </div>
     <div class="menu__menu">
-      Menu
+      <div class="menu__menu-items">
+      <!-- V-for -->
+      </div>
+      <div class="menu__menu-shutdown">
+        <MenuItem
+          :menu-item="shutdown"
+          @opened="shutdownWindows"
+        />
+      </div>
     </div>
   </div>
 </template>
@@ -18,18 +26,50 @@
 <script>
 export default {
   props: {
-    post: Object,
   },
   data () {
     return {
+      sortedMenu: [],
+      shutdown: {
+        title: `Shut Down...`,
+        icon: `shutdown`,
+        parent: false,
+      },
     };
   },
+
   mounted () {
     this.$nextTick(() => {
+      this.sortMenu();
     });
   },
   methods: {
+    sortMenu () {
+      const sortedMenu = [];
+      const menuItems = this.$store.state.menuItems;
 
+      // Get Parent Menu Items
+      for (const parentItem of menuItems) {
+        if (!parentItem.parent) {
+          parentItem.children = [];
+          sortedMenu.push(parentItem);
+        }
+      }
+
+      // Get Child Menu Items
+      for (const parentItem of sortedMenu) {
+        for (const childItem of menuItems) {
+          if (childItem.parent === parentItem.slug) {
+            parentItem.children.push(childItem);
+          }
+        }
+      }
+
+      this.sortedMenu = sortedMenu;
+    },
+    shutdownWindows () {
+      console.log(`shuttingdown`);
+    },
   },
 };
 </script>
@@ -46,7 +86,6 @@ $taskbarLabelWidth: 37.5px;
     background: $grey;
     border: 3px outset;
     min-width: 275px;
-    min-height: 50vh;
 
     &__label {
       display: flex;
@@ -75,6 +114,18 @@ $taskbarLabelWidth: 37.5px;
           font-weight: 300;
           transform: scale(1.05, .9);
         }
+      }
+    }
+
+    &__menu {
+      &-items {
+        min-height: 48vh;
+        border-bottom: 1px solid $darkgrey;
+      }
+
+      &-shutdown {
+        border-top: 1px solid $white;
+        align-self: flex-end;
       }
     }
   }

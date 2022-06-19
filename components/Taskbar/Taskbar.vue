@@ -8,7 +8,7 @@
       >
         <span>
           <img
-            src="~assets/icons/windows/Start_Button.png"
+            :src="icon('windows')"
             alt="Start Button"
             title="Click to open Start Menu"
           >

@@ -9,16 +9,16 @@
       >
         <img
           v-if="muted"
-          src="~/assets/icons/windows/Volume_Mute.svg"
+          :src="icon('volume-mute')"
         >
         <img
           v-else
-          src="~/assets/icons/windows/Volume.svg"
+          :src="icon('volume')"
         >
       </span>
     </div>
     <div
-      :data-tooltip="getDate()"
+      :data-tooltip="`${getDate()} 1996`"
       data-tooltip-position="top left"
       class="tray-icons__time ta-right"
     >
