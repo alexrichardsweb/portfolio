@@ -1,5 +1,5 @@
 ---
 title: Programs
 slug: programs
-icon: program
+icon: computer-with-programs
 ---
