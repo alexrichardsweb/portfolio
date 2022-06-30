@@ -11,12 +11,16 @@
     </div>
     <div class="menu__menu">
       <div class="menu__menu-items">
-      <!-- V-for -->
+        <!-- V-for -->
+        <MenuItem
+          v-for="item in sortedMenu"
+          :key="item.slug"
+          :menu-item="item"
+        />
       </div>
       <div class="menu__menu-shutdown">
         <MenuItem
           :menu-item="shutdown"
-          @opened="shutdownWindows"
         />
       </div>
     </div>
@@ -33,6 +37,7 @@ export default {
       shutdown: {
         title: `Shut Down...`,
         icon: `shutdown`,
+        slug: `shutdown`,
         parent: false,
       },
     };
@@ -66,9 +71,6 @@ export default {
       }
 
       this.sortedMenu = sortedMenu;
-    },
-    shutdownWindows () {
-      console.log(`shuttingdown`);
     },
   },
 };
@@ -119,7 +121,6 @@ $taskbarLabelWidth: 37.5px;
 
     &__menu {
       &-items {
-        min-height: 48vh;
         border-bottom: 1px solid $darkgrey;
       }
 

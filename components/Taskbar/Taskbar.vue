@@ -1,7 +1,7 @@
 <template>
   <div class="taskbar">
     <div class="taskbar__content">
-      <button
+      <div
         :class="{ 'active' : menuOpen }"
         class="taskbar__start-button"
         @click="setMenu"
@@ -14,8 +14,10 @@
           >
           <span>Start</span>
         </span>
-      </button>
-      <OpenTasks />
+      </div>
+      <OpenTasks
+        :key="`${numTasks}-open-tasks`"
+      />
       <IconTray />
     </div>
   </div>
@@ -29,6 +31,11 @@ export default {
     return {
       startOpen: false,
     };
+  },
+  computed: {
+    numTasks () {
+      return Object.keys(this.$store.state.openPrograms).length;
+    },
   },
   mounted () {
     this.$nextTick(() => {
@@ -49,6 +56,7 @@ export default {
     background: $grey;
     height: calc(#{$taskbarHeight} - 2px);
     border-top: 1px solid $white;
+    z-index: 2;
 
     &__content {
       display: grid;
@@ -64,12 +72,10 @@ export default {
         border-top: 1px solid $grey;
       }
     }
-    &__start-button {
-      margin-top: -2px;
-    }
-  }
 
-  button {
+    /* Slightly different to the start button in 98.css */
+
+    &__start-button {
     color: $black;
     background-color: $grey;
     font-family: inherit;
@@ -83,6 +89,7 @@ export default {
     align-items: center;
     justify-content: center;
     height: 27.5px;
+    margin-top: -2px;
 
     &:not(:disabled) {
       cursor: pointer;
@@ -152,7 +159,9 @@ export default {
         border-bottom: 1px solid $white;
         border-right: 1px solid $white;
       }
+
     }
+  }
   }
 
 </style>

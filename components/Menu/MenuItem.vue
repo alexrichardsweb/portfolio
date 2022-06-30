@@ -1,9 +1,10 @@
 <template>
   <div
     :data-menu-item="slugify(menuItem.title)"
-    :data-is-parent="menuItem.parent"
+    :data-is-parent="hasChildren"
+    :class="{ 'narrow-icon': narrowIcons.includes(menuItem.icon) }"
     class="menu-item"
-    @click="$emit('opened')"
+    @click="handleClick"
   >
     <img
       :src="icon(menuItem.icon)"
@@ -15,10 +16,7 @@
       {{ menuItem.title }}
     </p>
     <span class="menu-item__parent-indicator">
-      <i
-        v-if="hasChildren"
-        class="icon-chevron-right"
-      />
+      <div v-if="hasChildren" />
     </span>
   </div>
 </template>
@@ -30,6 +28,9 @@ export default {
   },
   data () {
     return {
+      narrowIcons: [
+        `shutdown`,
+      ],
     };
   },
   computed: {
@@ -45,7 +46,12 @@ export default {
     });
   },
   methods: {
-
+    handleClick () {
+      if (!this.hasChildren) {
+        this.$store.dispatch(`openProgram`, this.menuItem);
+        this.$store.dispatch(`setMenuStatus`, false);
+      }
+    },
   },
 };
 </script>
@@ -55,13 +61,31 @@ export default {
   .menu-item {
     cursor: pointer;
     display: grid;
-    grid-template-columns: 45px 1fr 15px;
-    gap: .75rem;
+    grid-template-columns: 40px 1fr 15px;
+    gap: 1rem;
     align-items: center;
-    padding: .25rem 0 .25rem .5rem;
+    padding: .35rem 0 .35rem .5rem;
 
     &__icon {
-      height: 45px;
+      height: 40px;
+    }
+
+    &__parent-indicator {
+      > div {
+        width: 0;
+        height: 0;
+        border-top: 5px solid transparent;
+        border-bottom: 5px solid transparent;
+        border-left: 5px solid $black;
+      }
+    }
+
+    &.narrow-icon {
+      grid-template-columns: 45px 1fr 15px;
+      gap: calc(1rem - 5px);
+      img {
+        height: 45px;
+      }
     }
 
     &[data-is-parent] {
@@ -73,6 +97,12 @@ export default {
     &.active {
       background: $blue;
       color: $white;
+
+      .menu-item__parent-indicator {
+        > div {
+          border-left-color: $white;
+        }
+      }
     }
   }
 

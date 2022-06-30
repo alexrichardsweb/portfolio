@@ -65,12 +65,20 @@ body {
     font-style: normal;
 }
 
+button,
+label,
+input,
+textarea,
+select,
+option,
+ul.tree-view,
+.window,
+.title-bar,
+.tf-body,
 .tf-heading {
-    font-family: $headingFont;
-}
-
-.tf-body {
     font-family: $bodyFont;
+    -webkit-font-smoothing: antialiased;
+    @include fontSize(14px);
 }
 
 /*

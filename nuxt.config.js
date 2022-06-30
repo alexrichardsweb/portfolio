@@ -18,6 +18,7 @@ export default {
     ],
     link: [
       { rel: `icon`, type: `image/x-icon`, href: `/favicon.ico` },
+      { rel: `stylesheet`, href: `https://unpkg.com/98.css` },
     ],
   },
 
@@ -36,6 +37,12 @@ export default {
 
   // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
   plugins: [
+    /* {
+      src: `@/plugins/draggable`, mode: `client`,
+    }, */
+    {
+      src: `@/plugins/interact`, mode: `client`,
+    },
   ],
 
   /*

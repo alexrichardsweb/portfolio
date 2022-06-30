@@ -5,6 +5,8 @@
   >
     <Menu v-if="menuOpen" />
     <Taskbar />
+
+    <ProgramArea />
   </main>
 </template>
 

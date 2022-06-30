@@ -36,7 +36,6 @@ export default {
 <style lang="scss" scoped>
 
 main {
-
 }
 
 </style>
