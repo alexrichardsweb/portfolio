@@ -6,4 +6,21 @@ background_text:
   - Does
   - This
   - Work
+background_list:
+  - Black Thatch
+  - Blue Rivets
+  - Bubbles
+  - Circles
+  - Forest
+  - Gold Weave
+  - Houndstooth
+  - Metal Links
+  - Pinstripe
+  - Red Blocks
+  - Sandstone
+  - Stitches
+  - Straw Mat
+  - Tiles
+  - Triangles
+  - Waves
 ---
