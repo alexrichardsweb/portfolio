@@ -1,5 +1,5 @@
 ---
-background_section: Pattern
+background_section: Patterns
 background_images: []
 background_text:
   - How
