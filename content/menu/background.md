@@ -6,7 +6,7 @@ icon: paintbrush
 has_desktop_icon: true
 parent: settings
 window:
-  width: 400
+  width: 410
   height: 500
   boolean: false
 ---
