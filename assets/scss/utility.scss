@@ -131,7 +131,17 @@ $taskbarHeight: 42px;
 }
 
 .box-shadow {
-    box-shadow: 5px 5px 10px 0px rgba(0,0,0,.1);
+    box-shadow: inset -1px -1px #0a0a0a,
+    inset 1px 1px #dfdfdf,
+    inset -2px -2px grey,
+    inset 2px 2px #fff;
+}
+
+.box-shadow-inner {
+    box-shadow: inset -1px -1px #fff,
+    inset 1px 1px grey,
+    inset -2px -2px #dfdfdf,
+    inset 2px 2px #0a0a0a;
 }
 
 .border-radius {

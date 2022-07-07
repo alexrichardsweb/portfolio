@@ -1,7 +1,6 @@
 // Global HTML DOM elements - layout & structural
 
 html, body {
-  background-color: $green;
   scroll-behavior: smooth;
 }
 
@@ -15,12 +14,16 @@ img {
 }
 
 main {
-  flex-wrap: wrap;
-  justify-content: space-between;
-  padding-top: 37px;
-  @include breakpoint('small-laptop') {
-      padding-top: 0;
-  }
+}
+
+button {
+  min-height: 26px;
+  min-width: 90px;
+}
+
+.title-bar-controls button {
+    min-height: 14px;
+    min-width: 16px;
 }
 
 .table--scrollable {
@@ -57,56 +60,8 @@ td {
   padding: .5rem;
 }
 
-blockquote {
-  position: relative;
-  margin: 1rem 0;
-  padding: 1rem 0;
-  border: 2px solid $green;
-  border-width: 2px 0;
-
-  &:before {
-      position: absolute;
-      content: '\e977';
-      left: 0;
-      top: 0;
-      bottom: 0;
-      display: flex;
-      align-items: center;
-      padding-right: 1rem;
-      margin: 1rem 0;
-      border-right: 2px solid $green;
-      color: $green;
-      font-family: 'icomoon';
-      @include fontSize(56px);
-  }
-
-  & > * {
-      position: relative;
-      left: calc(65px);
-      width: calc(100% - 65px);
-      padding-left: 1rem;
-  }
-}
-
 select {
-    color: $blue;
-    @include fontSize(16px);
-    padding: .5rem 2rem .5rem .85rem;
-    appearance: none;
-    background: $white url('~assets/icons/down-arrow.svg');
-    background-repeat: no-repeat;
-    background-size: 13px 13px;
-    background-position: calc(100% - .75rem) 50%;
-    border: 1px solid $grey;
-    font-weight: 400;
-    cursor: pointer;
-    &.bg-primary {
-        color: $white;
-        background: $blue url('~assets/icons/down-arrow-white.svg');
-        background-repeat: no-repeat;
-        background-size: 13px 13px;
-        background-position: calc(100% - .75rem) 50%;
-    }
+    width: 100%;
 }
 
 [data-tooltip] {

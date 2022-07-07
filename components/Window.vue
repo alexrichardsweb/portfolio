@@ -11,6 +11,7 @@
     @resizemove="resizemove"
   >
     <div
+      :class="{ 'active': active }"
       class="title-bar"
       @dblclick="handleTitleBarClick"
     >
@@ -20,19 +21,21 @@
           aria-label="Minimize"
           @click="minimise"
         />
-        <button
-          v-if="isMaximised"
-          aria-label="Restore"
-          @click="restore"
-        />
-        <button
-          v-else
-          aria-label="Maximize"
-          @click="maximise"
-        />
+        <template v-if="resizable">
+          <button
+            v-if="isMaximised"
+            aria-label="Restore"
+            @click="restore"
+          />
+          <button
+            v-else
+            aria-label="Maximize"
+            @click="maximise"
+          />
+        </template>
         <button
           aria-label="Close"
-          @click="close"
+          @click="closeProgram(program)"
         />
       </div>
     </div>
@@ -49,10 +52,6 @@ import interact from 'interactjs';
 export default {
   props: {
     program: Object,
-    resizable: {
-      type: Boolean,
-      default: true,
-    },
   },
   data () {
     return {
@@ -83,6 +82,8 @@ export default {
         positionX: 0,
         positionY: 0,
       },
+      active: true,
+      resizable: false,
     };
   },
   computed: {
@@ -97,6 +98,15 @@ export default {
   },
   mounted () {
     this.$nextTick(() => {
+      if (this.program.window?.width) {
+        this.width = this.program.window.width;
+      }
+      if (this.program.window?.height) {
+        this.height = this.program.window.height;
+      }
+      if (this.program.window?.resizable) {
+        this.resizable = this.program.window.resizable;
+      }
     });
   },
   methods: {
@@ -112,17 +122,19 @@ export default {
       this.positionY += event.deltaRect.top;
     },
     maximise () {
-      this.isMaximised = true;
-      this.restored = {
-        width: this.width,
-        height: this.height,
-        positionX: this.positionX,
-        positionY: this.positionY,
-      };
-      this.width = this.$el.parentElement.clientWidth;
-      this.height = this.$el.parentElement.clientHeight;
-      this.positionX = 0;
-      this.positionY = 0;
+      if (this.resizable) {
+        this.isMaximised = true;
+        this.restored = {
+          width: this.width,
+          height: this.height,
+          positionX: this.positionX,
+          positionY: this.positionY,
+        };
+        this.width = this.$el.parentElement.clientWidth;
+        this.height = this.$el.parentElement.clientHeight;
+        this.positionX = 0;
+        this.positionY = 0;
+      }
     },
     restore () {
       this.isMaximised = false;
@@ -130,9 +142,6 @@ export default {
       this.height = this.restored.height;
       this.positionX = this.restored.positionX;
       this.positionY = this.restored.positionY;
-    },
-    close () {
-      this.$store.dispatch(`closeProgram`, this.program);
     },
     minimise () {
       this.$store.dispatch(`minimiseProgram`, this.program);
@@ -157,8 +166,13 @@ export default {
     transition: width .1s, height .1s;
 
     .title-bar {
-      background: $blue !important;
+      background: $darkgrey;
       padding: 3px 3px 3px 4px;
+
+      &.active {
+        background: $blue;
+      }
+
       &-text {
         margin-top: -5px;
       }

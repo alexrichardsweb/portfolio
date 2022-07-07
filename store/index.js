@@ -1,3 +1,5 @@
+import background from './modules/background';
+
 export const state = () => ({
   config: {},
   menuOpen: false,
@@ -29,6 +31,8 @@ export const mutations = {
       icon: program.icon,
       title: program.title,
       slug: program.slug,
+      component: program.title.replace(/\s/g, ``),
+      window: program.window,
     };
     state.openPrograms.push(programConfig);
   },
@@ -67,8 +71,12 @@ export const actions = {
   toggleProgram ({ commit }, program) {
     commit(`TOGGLE_PROGRAM`, program);
   },
-  openProgram ({ commit }, program) {
-    commit(`OPEN_PROGRAM`, program);
+  openProgram ({ commit, state }, program) {
+    if (state.openPrograms.findIndex(p => p.slug === program.slug) > -1) {
+      commit(`RESTORE_PROGRAM`, program);
+    } else {
+      commit(`OPEN_PROGRAM`, program);
+    }
   },
   closeProgram ({ commit }, program) {
     commit(`CLOSE_PROGRAM`, program);
@@ -85,4 +93,5 @@ export const getters = {
 };
 
 export const modules = {
+  background,
 };

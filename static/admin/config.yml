@@ -134,6 +134,19 @@ collections:
             fields:
               - { label: 'Title', name: 'title', widget: 'string' }
               - { label: 'Link', name: 'link', widget: 'string' }
+  - name: 'Backgrounds'
+    label: 'Desktop Backgrounds'
+    folder: 'content/backgrounds'
+    format: 'frontmatter'
+    slug: 'backgrounds'
+    create: true
+    editor:
+      preview: false
+    fields:
+      - { label: 'Background Section', name: 'background_section', widget: 'string' }
+      - label: 'Backgrounds'
+        name: 'background_list'
+        widget: list
   - name: 'Menu Items'
     label: 'Menu Item'
     folder: 'content/menu'
@@ -146,6 +159,7 @@ collections:
       - { label: 'Title', name: 'title', widget: 'string' }
       - { label: 'Slug', name: 'slug', widget: 'string', required: false }
       - { label: 'Icon', name: 'icon', widget: 'string', required: false }
+      - { label: 'Has Desktop Icon', name: 'has_desktop_icon', widget: 'boolean', required: false, default: true }
       - label: 'Parent'
         name: 'parent'
         widget: 'relation'
@@ -154,3 +168,10 @@ collections:
         value_field: 'slug'
         search_fields: ['title', 'slug']
         display_fields: ['title']
+      - label: 'Window Options'
+        name: 'window'
+        widget: object
+        fields:
+          - { label: 'Width', name: 'width', widget: 'number', default: '400', required: false }
+          - { label: 'Height', name: 'height', widget: 'number', default: '400', required: false }
+          - { label: 'Resizable', name: 'boolean', widget: 'boolean', default: true }

@@ -39,6 +39,7 @@ export default {
         icon: `shutdown`,
         slug: `shutdown`,
         parent: false,
+        component: `Shutdown`,
       },
     };
   },

@@ -16,6 +16,7 @@ export default {
   mounted () {
     this.$nextTick(() => {
       this.getMenu();
+      this.getBackgrounds();
     });
   },
   methods: {
@@ -28,6 +29,24 @@ export default {
       }
 
       this.$store.dispatch(`setMenuItems`, menu);
+    },
+    async getBackgrounds () {
+      let backgroundSections;
+      const backgrounds = [];
+      try {
+        backgroundSections = await this.$content(`backgrounds`).fetch();
+      } catch (e) {
+        console.log(`Backgrounds not found`);
+      }
+
+      for (const section of backgroundSections) {
+        backgrounds.push({
+          title: section.background_section,
+          backgrounds: section.background_list,
+        });
+      }
+
+      this.$store.dispatch(`setBackgrounds`, backgrounds);
     },
   },
 };

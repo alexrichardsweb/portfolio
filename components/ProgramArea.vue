@@ -1,10 +1,16 @@
 <template>
   <div class="program-area">
-    <Program
+    <DesktopIcons />
+    <Window
       v-for="program in openPrograms"
       :key="program.slug"
       :program="program"
-    />
+    >
+      <component
+        :is="program.component"
+        :program="program"
+      />
+    </Window>
   </div>
 </template>
 
