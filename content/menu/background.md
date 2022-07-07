@@ -7,6 +7,6 @@ has_desktop_icon: true
 parent: settings
 window:
   width: 410
-  height: 500
+  height: 480
   boolean: false
 ---
