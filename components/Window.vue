@@ -7,6 +7,10 @@
     :drag-option="dragOption"
     :resize-option="resizeOption"
     class="bg-grey window"
+    :class="[
+      { 'minimised': !program.open},
+      { 'open': program.open }
+    ]"
     @dragmove="dragmove"
     @resizemove="resizemove"
   >
@@ -88,9 +92,37 @@ export default {
   },
   computed: {
     windowStyle () {
+      if (this.program.open) {
+        return {
+          height: `${this.height}px`,
+          width: `${this.width}px`,
+          left: `${this.positionX}px`,
+          top: `${this.positionY}px`,
+        };
+      }
       return {
-        height: `${this.height}px`,
-        width: `${this.width}px`,
+        height: `20px`,
+        width: `20px`,
+        left: `${this.positionX}px`,
+        top: `${this.positionY}px`,
+        transform: `translate(${this.taskbarItemLocation.diffLeft}px, ${this.taskbarItemLocation.diffTop}px)`,
+        opacity: 1,
+        overflow: `hidden`,
+      };
+    },
+    taskbarItemLocation () {
+      // For animation of minimising/restoring to taskbar
+      const taskbarItem = this.domQs(`#task-${this.program.slug}`);
+      if (taskbarItem) {
+        const rect = taskbarItem.getBoundingClientRect();
+        return {
+          left: rect.left,
+          top: rect.top,
+          diffLeft: rect.left - this.positionX + 77.5, // Difference to middle of taskbar item
+          diffTop: rect.top - this.positionY + 5, // Difference to middle of taskbar item
+        };
+      }
+      return {
         left: `${this.positionX}px`,
         top: `${this.positionY}px`,
       };
@@ -163,7 +195,11 @@ export default {
     position: absolute;
     z-index: 0;
     box-sizing: border-box;
-    transition: width .1s, height .1s;
+    transition: width .1s, height .1s, transform .3s, opacity .3s;
+
+    &.minimised {
+      transition: .3s;
+    }
 
     .title-bar {
       background: $darkgrey;

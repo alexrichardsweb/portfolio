@@ -74,6 +74,7 @@ export default {
 
   .desktop-icon {
     cursor: default;
+    min-width: 70px;
 
     &__wrapper {
       display: grid;
@@ -91,6 +92,8 @@ export default {
     &__title {
       @include fontSize(14px);
       padding: .05rem;
+      max-width: 100px;
+      text-align: center;
     }
 
     &:active {

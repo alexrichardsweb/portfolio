@@ -92,7 +92,6 @@ export default {
     margin-top: -2px;
 
     &:not(:disabled) {
-      cursor: pointer;
 
       &:active > span,
       &:focus > span,

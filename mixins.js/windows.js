@@ -23,5 +23,17 @@ export default {
     getImage (image, type) {
       return require(`~/assets/backgrounds/${type}/${image.replace(/\s/g, ``)}.png`);
     },
+    restoreProgram (program) {
+      const toRestore = typeof program === `string`
+        ? { slug: program }
+        : program;
+      this.$store.dispatch(`restoreProgram`, toRestore);
+    },
+    minimiseProgram (program) {
+      const toMinimise = typeof program === `string`
+        ? { slug: program }
+        : program;
+      this.$store.dispatch(`minimiseProgram`, toMinimise);
+    },
   },
 };

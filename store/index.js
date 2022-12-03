@@ -50,8 +50,9 @@ export const mutations = {
   },
   RESTORE_PROGRAM (state, program) {
     const programIndex = state.openPrograms.findIndex(p => p.slug === program.slug);
+    console.log(programIndex);
     if (programIndex > -1) {
-      state.openPrograms[programIndex].open = false;
+      state.openPrograms[programIndex].open = true;
     }
   },
 };

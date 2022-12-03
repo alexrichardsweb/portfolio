@@ -26,7 +26,7 @@ export default {
     **  Global environment variables
     */
   env: {
-    siteTitle: `Sotic Digital`,
+    siteTitle: `Alex Richards`,
   },
 
   /*

@@ -7,12 +7,6 @@ $black: #000;
 $white: #fff;
 $darkgrey: #808080;
 
-// SOCIAL COLOURS
-$facebook: #4465a3;
-$twitter: #1fabf4;
-$instagram: #8e42BD;
-$youtube: #c4302b;
-$linkedin: #2867b2;
 
 // COLOUR MAP
 $colour-list: (
@@ -23,53 +17,13 @@ $colour-list: (
     "grey": $grey,
     "white": $white,
     "darkgrey": $darkgrey,
-    "facebook": $facebook,
-    "twitter": $twitter,
-    "instagram": $instagram,
-    "youtube": $youtube,
-    "linkedin": $linkedin,
 );
 
 @each $name, $hex in $colour-list {
 
-    @if (str-index($name, 'gradient')) {
-        .bg-#{$name} {
-            background: $hex;
-        }
 
-        .hover-bg-#{$name} {
-            transition: .2s;
-            &:hover,
-            &:focus {
-                background: $hex;
-            }
-        }
-        .hover-bg-#{$name}--no-focus {
-            transition: .2s;
-            &:hover {
-                background: $hex;
-            }
-        }
-    }
-    @else {
-        .bg-#{$name} {
-            background-color: $hex;
-        }
-
-        .hover-bg-#{$name} {
-            transition: .2s;
-            &:hover,
-            &:focus {
-                background-color: $hex;
-            }
-        }
-
-        .hover-bg-#{$name}--no-focus {
-            transition: .2s;
-            &:hover {
-                background-color: $hex;
-            }
-        }
+    .bg-#{$name} {
+        background-color: $hex;
     }
 
     .c-#{$name} {
@@ -80,13 +34,6 @@ $colour-list: (
         transition: .2s;
         &:hover,
         &:focus {
-            color: $hex;
-        }
-    }
-
-    .hover-c-#{$name}--no-focus {
-        transition: .2s;
-        &:hover {
             color: $hex;
         }
     }

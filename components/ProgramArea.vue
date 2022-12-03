@@ -5,6 +5,7 @@
       v-for="program in openPrograms"
       :key="program.slug"
       :program="program"
+      class="program-area__window"
     >
       <component
         :is="program.component"
@@ -30,9 +31,8 @@ export default {
   },
   mounted () {
     this.$nextTick(() => {
+
     });
-  },
-  methods: {
   },
 };
 </script>

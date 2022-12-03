@@ -34,16 +34,21 @@ export default {
   data () {
     return {
       muted: true,
+      time: this.getLocalTime(),
+      interval: null,
     };
   },
   computed: {
-    time () {
-      return this.getLocalTime();
-    },
   },
   mounted () {
     this.$nextTick(() => {
+      this.interval = setInterval(() => {
+        this.time = this.getLocalTime();
+      }, 1000);
     });
+  },
+  unmounted () {
+    clearInterval(this.interval);
   },
 };
 </script>

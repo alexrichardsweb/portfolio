@@ -3,7 +3,7 @@
 # =============================================
 
 textFields:
-  - &TEXTFIELD { label: Text, name: text, widget: richtext }
+  - &TEXTFIELD { label: Text, name: text, widget: richtext, required: false }
 
 blockSettingsFields:
   - &WIDTHFIELD { label: 'Width (%)', name: width, widget: number, default: 50, step: 5, min: 25, max: 75 }
@@ -175,3 +175,26 @@ collections:
           - { label: 'Width', name: 'width', widget: 'number', default: '400', required: false }
           - { label: 'Height', name: 'height', widget: 'number', default: '400', required: false }
           - { label: 'Resizable', name: 'boolean', widget: 'boolean', default: true }
+      - *TEXTFIELD
+  - name: 'Folders'
+    label: 'Folders'
+    folder: 'content/folders'
+    format: 'frontmatter'
+    create: true
+    slug: '{{slug}}'
+    editor:
+      preview: false
+    fields:
+      - { label: 'Title', name: 'title', widget: 'string' }
+      - { label: 'Slug', name: 'slug', widget: 'string', required: false }
+      - { label: 'Icon', name: 'icon', widget: 'string', required: false }
+      - { label: 'Has Desktop Icon', name: 'has_desktop_icon', widget: 'boolean', required: false, default: true }
+      - label: 'Items'
+        name: 'items'
+        widget: 'relation'
+        required: false
+        collection: 'Menu Items'
+        value_field: 'slug'
+        search_fields: ['title', 'slug']
+        display_fields: ['title']
+        multiple: true
